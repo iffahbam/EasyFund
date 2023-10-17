@@ -1,0 +1,77 @@
+body {
+    background-color:rgb(241, 228, 231);
+}
+
+h2 {
+    margin-top: 1px;
+    letter-spacing: 1px;
+}
+
+#form {
+    background-color:#DEC5C5;
+    border-radius: 18px;
+    width: 45%;
+    margin: 0 auto;
+    margin-top: 120px;
+    padding: 30px;
+}
+
+#name {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#email {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#number {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#username {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#password{
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#btn {
+    color: black;
+    background-color: rgb(211, 97, 97);
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 1px solid #000;
+}
+
+#btn2 {
+    color: white;
+    background-color: black;
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 0;
+}
+
+
