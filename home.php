@@ -109,15 +109,17 @@ body {
 </head>
 <body>
 
+<a href="profile.php"> 
 <div class="profile-icon">
 <img src="profile.jpg" width="30" height="30" alt="Profile">
-</div>
+</div></a>
 
 <div class="topnav">
 <div style = "padding-left:40px">
   <a class="active" href="#Home">Home</a>
-  <a href="#ContactUs">Contact Us</a>
+  <a href="contact us page.php">Contact Us</a>
   <a href="#About">About</a>
+  <a href=""></a>
 </div>
 </div>
 
