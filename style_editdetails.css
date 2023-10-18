@@ -1,0 +1,114 @@
+body {
+    background-color:rgb(241, 228, 231);
+}
+
+h2 {
+    margin-top: auto;
+    letter-spacing: 1px;
+}
+
+.profile-icon {
+    position: fixed;
+    top: 10px;
+    right: 40px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #DEC5C5;
+}
+
+.topnav a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #DCA9A9;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #DCA9A9;
+  color: black;
+}
+
+.container {
+    	display: flex;
+    	align-items: center;
+    }
+
+form {
+		display: flex;
+      	flex-direction: column;
+      	gap: 20px;
+	}
+
+.edit-icon {
+            position: relative;
+            bottom: 140px; 
+            left: 1070px;
+            font-size: 40px;
+            cursor: pointer;
+            transform: scaleX(-1); 
+        }
+
+.button-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        gap: 30px; /* Add some space between the buttons */
+}
+
+#form {
+    background-color:#DEC5C5;
+    border-radius: 18px;
+    width: 45%;
+    margin: 0 auto;
+    margin-top: 90px;
+    padding: 30px;
+}
+
+#title {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#description {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#btn {
+    color: black;
+    background-color: rgb(211, 97, 97);
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 1px solid #000;
+}
+
+#btn2 {
+    color: black;
+    background-color: rgb(24, 212, 24);
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 1px solid #000;
+}
+
+
