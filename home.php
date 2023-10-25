@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -54,11 +59,13 @@ body {
   .box {
     background-color: white;
     width: 30%;
-    height: 40%;
+    min-height: 200px;
     padding: 60px;
     border: 1px solid black;
     margin: 60px;
     text-align: center; 
+    border-radius: 15px;
+    letter-spacing: 1px;
   }
 
   .box:nth-child(3) p {
@@ -66,9 +73,10 @@ body {
   }
 
   .loading-container {
-  display: flex;
-  justify-content: center; /* Center loading bars horizontally */
-  margin-right: 20px; /* Adjust margin*/
+    display: flex;
+    justify-content: center; /* Center loading bars horizontally */
+    margin-right: 20px; /* Adjust margin*/
+    margin-bottom: 60px;
 }
 
 .loading-bars {
@@ -98,16 +106,19 @@ body {
   }
 
   .loading-text {
-  position: absolute;
-  top: -25px; /* Adjust position */
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
+    position: absolute;
+    bottom: 35px; /* Adjust the value to add more space */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
 }
+
 </style>
 </head>
 <body>
+<?php echo $_SESSION["username"]?>
 
 <a href="profile.php"> 
 <div class="profile-icon">
@@ -159,7 +170,42 @@ body {
   </div>
 </div>
 
+<div class="box-container">
+    <div class="box">
+      <h2>Condelence For Imran Syakir</h2></br>
+      <p>Heartfelt condolences to brother
+        Imran, student from KICT whose mother has just passed away recently.</p>
+    </div>
+    
+    <div class="box">
+      <h2>Fire Relieve Fundraiser</h2></br>
+      <p>Sister Humaira, student from AIKOL just lost her house due to fire 
+          on May in Melaka. Lets donate to relieve her burden.</p>
+    </div>
+    <div class="box">
+      <h2>Flood Victim</h2></br>
+      <p>We regret to inform you that brother Afiq from IRKHS has been 
+          caught in the devastating flood that has affected his home and belongings</p>
+    </div>
+  </div>
+
+  <div class="loading-container">
+  <div class="loading-bars">
+    <div class="loading-bar">
+    <div class="loading-text">RM650 of RM1000</div>
+      <div class="loading-fill"></div>
+    </div>
+    <div class="loading-bar">
+    <div class="loading-text">RM650 of RM1000</div>
+      <div class="loading-fill"></div>
+    </div>
+    <div class="loading-bar">
+    <div class="loading-text">RM650 of RM1000</div>
+      <div class="loading-fill"></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
 </head>
-
