@@ -92,7 +92,7 @@ textarea {
     border: 0;
     border-radius: 8px;
     font-family: Arial, Helvetica, sans-serif;
-    min-height: 100px; /* Minimum height for the textarea */
+    min-height: 200px; /* Minimum height for the textarea */
     overflow: auto; /* Add a scrollbar if content exceeds the textarea height */
     resize: none;
 }
