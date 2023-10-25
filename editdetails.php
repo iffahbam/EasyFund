@@ -137,14 +137,23 @@ input[type="button"] {
     </div>
 
 
-    <div class="container">
+     <div class="container">
         <form action="home.php" method="POST">
             
             <h2>Title</h2>
-                <input type="text" id="title" name="title" value="Edit your title here">
+                <input type="text" id="title" name="title" value="Condolence For Iman Syakir">
           
             <h2>Description</h2>
-                <textarea id="description" name="description" contentEditable="true">Edit your description here</textarea>
+                <textarea id="description" name="description" contentEditable="true">Assalamualaikum w.b.t,
+KICTSS would like to express our heartfelt condolences to our dear KICT member, Imran Syakir bin Isa, student from KULLIYAH OF INFORMATION & COMMUNICATION TECHNOLOGY, whose mother has just passed away recently. 
+
+May Allah SWT bless his mother with His mercy and the highest of Jannah.
+
+اَللَّهُمَّ اغْفِرْلَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا
+
+Hope all your sincere donations can help this student to some extent.
+
+Targeted amount: RM1000</textarea>
      </div>
 				</form>
         </form>
