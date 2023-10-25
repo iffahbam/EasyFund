@@ -68,6 +68,11 @@ body {
     letter-spacing: 1px;
   }
 
+a {
+    color: black;
+    text-decoration: none; /* Optional: Remove underlines from links */
+}
+
   .box:nth-child(3) p {
     margin-bottom: 25px; /*space after the paragraph text in Box 3 */
   }
@@ -136,9 +141,10 @@ body {
 
 <div class="box-container">
     <div class="box">
+      <a href = "donation.php">
       <h2>Condelence For Imran Syakir</h2></br>
       <p>Heartfelt condolences to brother
-        Imran, student from KICT whose mother has just passed away recently.</p>
+        Imran, student from KICT whose mother has just passed away recently.</p></a>
     </div>
     
     <div class="box">
