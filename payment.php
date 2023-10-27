@@ -138,6 +138,7 @@ input[type="submit"] {
     padding: 6px;
     border: 1px solid #000;
     border-radius: 8px;
+    cursor: pointer;
     width: 10%;
 }
 
