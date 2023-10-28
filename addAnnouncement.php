@@ -19,9 +19,12 @@
             }
 
             .profile-icon {
-                position: fixed;
-                top: 10px;
-                right: 40px;
+                position: absolute;
+                display: flex;
+                align-items: center;
+                top: 10px; /* Adjust the top position as needed */
+                right: 40px; /* Adjust the right position as needed */
+                cursor: pointer; /* Add a pointer cursor on hover */
             }
 
             body {
