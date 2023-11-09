@@ -56,23 +56,27 @@
         flex-direction: column;
         align-items: center; /* Center content horizontally */
         justify-content: center; /* Center content vertically */
+        line-height: 1.5;
     }
 
 
   .box {
-    background-color: white;
-    width: 58%;
-    height: 40%;
-    padding: 40px;
+    background-color: #FBFBF6;
+    width: 48%;
+    height: 60%;
+    padding: 60px;
     border: 1px solid black;
-    border-radius: 4px;
+    border-radius: 10px;
     margin: 57px;
     text-align: center; 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
   }
 
 
   /* progress bar */
   .loading-container {
+    margin: 10px;
     display: flex;
     flex-direction: column; /* Stack loading bars vertically */
     align-items: center; /* Center loading bars horizontally */
@@ -80,7 +84,7 @@
 }
 
 .loading-bars {
-    width: 90%;
+    width: 25%;
     display: flex;
     flex-direction: column; /* Stack loading bars vertically */
     align-items: center; /* Center loading bars horizontally */
@@ -88,31 +92,34 @@
 }
 
 .loading-bar {
-    width: calc(30% - 55px); /* Adjust margins and spacing */
-    height: 25px;
-    background-color: white;
+    width: 100%;
+    height: 20px;
+    background-color: whitesmoke;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: flex-start;
     position: relative;
-    border: 1px solid #000;
 }
 
 .loading-fill {
     height: 100%;
-    background-color: #DA3A3A;
-    width: 50%; /* Adjust width for loading progress */
+    background-color: #4CAF50;
     border-radius: 10px;
 }
 
 .loading-text {
     position: absolute;
-    top: -25px; /* Adjust position */
+    top: -35px; /* Adjust position */
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 20px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #545450;
+    font-weight: bold;
+    
 }
 
 /* Style for the Enter Amount input field */
@@ -172,25 +179,24 @@
 <div class="content-container">
     <div class="box">
       
-        <h2>Condelence For Imran Syakir</h2></br>
-      <p> Assalamualaikum w.b.t, KICTSS would like to express our heartfelt condolences to our dear KICT member, Imran Syakir bin Isa, 
-        student from KULLIYAH OF INFORMATION & COMMUNICATION TECHNOLOGY, whose mother has just passed away recently. 
-        May Allah SWT bless his mother with His mercy and the highest of Jannah. </br></br></br>
-        
-        اَللَّهُمَّ اغْفِرْلَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا </br></br></br>
-        
-        Targeted amount: RM1000</br></p>
+        <h2><?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?></h2>
+      <p><?php echo isset($_GET['description']) ? htmlspecialchars($_GET['description']) : ''; ?></br></p>
  </div>   
   </div>
 
-  <div class="loading-container">
-  <div class="loading-bars">
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
+  <?php
+    $currentAmount = 500; 
+    $targetAmount = isset($_GET['targetAmount']) ? (int)$_GET['targetAmount'] : 0;
+    ?>
+
+    <div class="loading-container">
+        <div class="loading-bars">
+            <div class="loading-bar">
+                <div class="loading-text">RM<?php echo $currentAmount; ?> of RM<?php echo $targetAmount; ?></div>
+                <div class="loading-fill" style="width: <?php echo ($currentAmount / $targetAmount) * 100; ?>%;"></div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
     <!-- Container for Enter Amount and Donate button -->
     <div class="donation-container">
