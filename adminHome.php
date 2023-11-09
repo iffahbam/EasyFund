@@ -1,260 +1,244 @@
 
+<?php
+
+function encrypt($data, $key, $iv) {
+    $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
+    return base64_encode($encrypted);
+}
+
+function decrypt($data, $key, $iv) {
+    $data = base64_decode($data);
+    return openssl_decrypt($data, 'aes-256-cbc', $key, 0, $iv);
+}
+
+
+$connect = new PDO("mysql:host=localhost;dbname=testing", "root", "");
+
+$query = "SELECT * FROM news ORDER BY id DESC";
+$statement = $connect->prepare($query);
+$statement->execute();
+
+if($statement->rowCount() > 0) {
+    $result = $statement->fetchAll();
+} 
+
+else {
+    $output .= '<tr><td>No Data Found</td></tr>';
+}
+
+
+?>
+
 
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-	<meta charset = "UTF-8">
-	<meta http-equiv = "X-UA-Compatible" content = "IE = edge">
-	<meta name = "viewport" content = "with = device-width, initial-scale = 1.0">
-	<title> EasyFund </title>
-	<link rel = "stylesheet" type = "text/css" href = "style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyFund</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
-.profile-icon {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 10px; /* Adjust the top position as needed */
-    right: 40px; /* Adjust the right position as needed */
-    cursor: pointer; /* Add a pointer cursor on hover */
-}
 
-.new-button {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 80px; /* Adjust the top position as needed */
-    left: 60px; /* Adjust the right position as needed */
-    /*background-color: white; /* Add your desired background color */
-    color: black; /* Text color */
-    padding: 5px 10px; /* Adjust the padding as needed */
-    border-radius: 5px; /* Add rounded corners if desired */
-    cursor: pointer; /* Add a pointer cursor on hover */
-}
-
-
-.text {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 20px; 
-    margin-left: 14px;
-}
-
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #DEC5C5;
-}
-
-.topnav a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #DCA9A9;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #DCA9A9;
-  color: black;
-}
-
-.box-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    margin-bottom: 0px;
-  }
-
-.box {
-    background-color: white;
-    width: 30%;
-    min-height: 200px;
-    padding: 60px;
-    border: 1px solid black;
-    margin: 60px;
-    text-align: center; 
-    border-radius: 15px;
-    letter-spacing: 1px;
-  }
-
-.box:nth-child(3) p {
-    margin-bottom: 25px; /* Add space after the paragraph text in Box 3 */
-  }
-
-.loading-container {
-  display: flex;
-  justify-content: center; /* Center the loading bars horizontally */
-  margin-right: 20px; /* Adjust the margin as needed */
-  margin-bottom: 60px;
-}
-
-.loading-bars {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.loading-bar {
-    width: calc(30% - 55px); /* Adjust margins and spacing */
-    height: 25px;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    border: 1px solid #000;
-}
-
-.loading-fill {
-    height: 100%;
-    background-color: #DA3A3A;
-    width: 50%; /* Adjust the width as needed for the loading progress */
-    border-radius: 10px;
-  }
-
-  .loading-text {
-    position: absolute;
-    bottom: 35px; /* Adjust the value to add more space */
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    letter-spacing: 1px;
-}
-
-.edit-icon {
-            position: relative;
-            bottom: 80px; 
-            left: 175px;
-            font-size: 40px;
-            cursor: pointer;
-            transform: scaleX(-1); 
+        body {
+            background-color:rgb(241, 228, 231);
         }
 
-</style>
+        .profile-icon {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            top: 10px;
+            right: 40px;
+            cursor: pointer;
+        }
+
+        .new-button {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            top: 80px;
+            left: 50px;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 20px;
+            margin-left: 14px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #DEC5C5;
+        }
+
+        .topnav a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #DCA9A9;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #DCA9A9;
+            color: black;
+        }
+
+        .column-container {
+            display: flex;
+            gap: 20px; /* Adjust the gap between boxes */
+            justify-content: space-between; /* Distribute boxes evenly in 3 columns */
+            flex-wrap: wrap; /* Wrap to the next line if there are more than 3 boxes */
+            padding: 30px;
+        }
+
+        a {
+          color: black;
+          text-decoration: none; /* Optional: Remove underlines from links */
+        }
+
+        .title {
+            font-size: 24px; /* Adjust the font size as needed */
+            margin-top: 40px;
+            margin-bottom: -60px;
+        }
+
+        .boxCol {
+            width: calc(30.33% - 35px);
+            text-align: center;
+            border-radius: 15px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            margin-right: 30px;
+            margin-left: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .box-background {
+            background-image: url('imran.jpg');
+            background-size: cover;
+            min-height: 200px;
+            padding: 80px 60px;
+            border: 1px solid black;
+        }
+
+
+        .loading-bar {
+            width: 100%;
+            height: 15px;
+            background-color: #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        .loading-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 10px;
+        }
+
+        .number {
+            font-size: 18px; /* Adjust the font size as needed */
+            color: #555; /* Set the color as needed */
+            display: flex;
+            justify-content: center; 
+        }
+
+        .edit-icon {
+            position: relative;
+            bottom: 120px;
+            left: 185px;
+            font-size: 40px;
+            cursor: pointer;
+            transform: scaleX(-1);
+        }
+    </style>
 </head>
 <body>
-<?php echo $_SESSION["username"]?>
+    <?php echo $_SESSION["username"] ?>
 
-<div class="profile-icon">
-<img src="profile.jpg" width="30" height="30" alt="Profile">
-</div>
-
-<div class="topnav">
-<div style = "padding-left:40px">
-  <a class="active" href="#Home">Home</a>
-  <a href="#ContactUs">Contact Us</a>
-  <a href="#About">About</a>
-</div>
-</div>
-
-<div class ="new-button" onclick="addNewAnnouncement()">
-    <img src ="plus.jpg" width="30" height="30" alt="Plus Icon">
-    <span class ="text">NEW</span>
-</div>
-
-<div class="box-container">
-    <div class="box">
-    <a href="editdetails.php" style="text-decoration: none;"> 
-    <div class="edit-icon">&#9998;</div></a>
-      <h2>Condelence For Imran Syakir</h2></br>
-      <p>Heartfelt condolences to brother
-        Imran, student from KICT whose mother has just passed away recently.</p>
+    <a href="adminProfile.php">
+    <div class="profile-icon">
+        <img src="profile.jpg" width="30" height="30" alt="Profile">
     </div>
+    </a>
     
-    <div class="box">
-    <div class="edit-icon">&#9998;</div>
-      <h2>Fire Relieve Fundraiser</h2></br>
-      <p>Sister Humaira, student from AIKOL just lost her house due to fire 
-          on May in Melaka. Lets donate to relieve her burden.</p>
+    <div class="topnav">
+        <div style="padding-left:40px">
+            <a class="active" href="#Home">Home</a>
+            <a href="contact us page.php">Contact Us</a>
+            <a href="#About">About</a>
+        </div>
     </div>
-    <div class="box">
-    <div class="edit-icon">&#9998;</div>
-      <h2>Flood Victim</h2></br>
-      <p>We regret to inform you that brother Afiq from IRKHS has been 
-          caught in the devastating flood that has affected his home and belongings</p>
-    </div>
-  </div>
 
-  <div class="loading-container">
-  <div class="loading-bars">
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
+    <div class="new-button" onclick="addNewAnnouncement()">
+        <img src="plus.jpg" width="30" height="30" alt="Plus Icon">
+        <span class="text">NEW</span>
     </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-  </div>
-</div>
 
-<div class="box-container">
-    <div class="box">
-    <a href="editdetails.php" style="text-decoration: none;"> 
-    <div class="edit-icon">&#9998;</div></a>
-      <h2>Condelence For Imran Syakir</h2></br>
-      <p>Heartfelt condolences to brother
-        Imran, student from KICT whose mother has just passed away recently.</p>
-    </div>
-    
-    <div class="box">
-    <div class="edit-icon">&#9998;</div>
-      <h2>Fire Relieve Fundraiser</h2></br>
-      <p>Sister Humaira, student from AIKOL just lost her house due to fire 
-          on May in Melaka. Lets donate to relieve her burden.</p>
-    </div>
-    <div class="box">
-    <div class="edit-icon">&#9998;</div>
-      <h2>Flood Victim</h2></br>
-      <p>We regret to inform you that brother Afiq from IRKHS has been 
-          caught in the devastating flood that has affected his home and belongings</p>
-    </div>
-  </div>
+    <div align="center"><?php echo $error; ?></div>
+    <br><br><br>
+    <?php
+    $currentAmount = 500;
+if (isset($result)) {
+    echo '<div class="column-container" id="boxContainer">';
+    foreach ($result as $row) {
+        echo '<div class="boxCol box-background">'; 
+        echo '<a href="details.php?news_id=' . $row["id"] . '&title=' . urlencode($row["title"]) . '&description=' . urlencode($row["description"]) . '&currentAmount=' . $row["currentAmount"] . '&targetAmount=' . $row["targetAmount"] . '" class="boxCol">';
+        echo '<div class="edit-icon">&#9998;</div>';
+        echo '<h2 class="title">' . $row["title"] . '</h2>';
+        echo '<br><br><br><br>';
+        echo '<span class="number">RM' . $currentAmount . ' of RM' . $row["targetAmount"] . '</span>'; // Display current amount out of target amount
+        echo '</a>'; // Close the anchor element
+        echo '<div class="loading-bar">';
+        echo '<div class="loading-fill" style="width: ' . calculateProgress($row["targetAmount"]) . '%;"></div>';
+        echo '</div>';
+        echo '</div>';
+    }
+    echo '</div>';
+}
 
-  <div class="loading-container">
-  <div class="loading-bars">
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-  </div>
-</div>
+function calculateProgress($targetAmount) {
+    // Calculate the progress as a percentage
+    // You need to implement your own logic here based on the actual progress
+    // For example, you could calculate it as (currentAmount / targetAmount) * 100
+    $currentAmount = 500; // Replace with the actual current amount
+    $progress = ($currentAmount / $targetAmount) * 100;
 
-<script>
+    return $progress;
+}
+?>
+   
+   <script>
         function addNewAnnouncement() {
-            // Redirect the user to addAnnouncement.php
             window.location.href = "addAnnouncement.php";
         }
     </script>
 
 </body>
 </html>
-</head>
-
