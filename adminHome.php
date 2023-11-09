@@ -137,7 +137,7 @@ else {
         }
 
         .box-background {
-            background-image: url('imran.jpg');
+            background-image: url('photo.jpg');
             background-size: cover;
             min-height: 200px;
             padding: 80px 60px;
