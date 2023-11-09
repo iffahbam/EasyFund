@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,8 +84,6 @@ input[type="text"] {
     margin-bottom: 20px; /* Add space below the buttons */
 }
 
-
-
 textarea {
     background-color: white;
     width: 95%;
@@ -98,14 +98,14 @@ textarea {
 }
 
 
-input[type="submit"] {
+.update {
     background-color: rgb(24, 212, 24);
     color: black;
     padding: 6px;
     border: 1px solid #000;
     border-radius: 8px;
     cursor: pointer;
-    width: 10%;
+    width: 20%;
 }
 
 
@@ -116,8 +116,9 @@ input[type="button"] {
     border: 1px solid #000;
     border-radius: 8px;
     cursor: pointer;
-    width: 10%;
+    width: 20%;
 }
+
     </style>
 </head>
 
@@ -130,7 +131,7 @@ input[type="button"] {
     <div class="topnav">
             <a class="back-button" href="javascript:history.back()"><b> < </b></a>
             <div style = "padding-left:40px">
-                <a href="home.php">Home</a>
+                <a href="adminHome.php">Home</a>
                 <a href="contact us page.php">Contact Us</a>
                 <a href="#About">About</a>
         </div>
@@ -138,30 +139,20 @@ input[type="button"] {
 
 
      <div class="container">
-        <form action="home.php" method="POST">
+     <form method="POST" action="adminHome.php">
             
             <h2>Title</h2>
-                <input type="text" id="title" name="title" value="Condolence For Iman Syakir">
+                <input type="text" id="title" name="title" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">
           
             <h2>Description</h2>
-                <textarea id="description" name="description" contentEditable="true">Assalamualaikum w.b.t,
-KICTSS would like to express our heartfelt condolences to our dear KICT member, Imran Syakir bin Isa, student from KULLIYAH OF INFORMATION & COMMUNICATION TECHNOLOGY, whose mother has just passed away recently. 
+                <textarea id="description" name="description" contentEditable="true"><?php echo isset($_GET['description']) ? htmlspecialchars($_GET['description']) : ''; ?></textarea>
 
-May Allah SWT bless his mother with His mercy and the highest of Jannah.
-
-اَللَّهُمَّ اغْفِرْلَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا
-
-Hope all your sincere donations can help this student to some extent.
-
-Targeted amount: RM1000</textarea>
-     </div>
-				</form>
+                <input type = "hidden" name="update" value="true">
+                <div class="button-container">
+                    <input type="button" value="Cancel" onclick="window.location.href='adminHome.php';">
+                    <input type="submit" class= "update" value="Update" ></div>
         </form>
-    </div>
-
-    <div class="button-container">
-                <input type="button" value="Cancel" onclick="window.location.href='adminHome.php';">
-                <input type="submit" value="Update">
+     </div>
 
 </body>
 </html>
