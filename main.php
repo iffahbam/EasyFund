@@ -1,3 +1,39 @@
+<?php
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    $mysqli = require __DIR__ . "/database.php";
+    
+    $sql = sprintf("SELECT * FROM user
+                    WHERE username = '%s'",
+                   $mysqli->real_escape_string($_POST["username"]));
+    
+    $result = $mysqli->query($sql);
+    
+    $user = $result->fetch_assoc();
+    
+    if ($user) {
+        
+        if (password_verify($_POST["password"], $user["password_hash"])) {
+            
+            session_start();
+            
+            session_regenerate_id();
+            
+            $_SESSION["user_id"] = $user["id"];
+            
+            header("Location: home.php");
+            exit;
+        }
+    }
+    
+    $is_invalid = true;
+}
+
+?>
+
 
 <?php
 
@@ -38,15 +74,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 	}
 }
 ?>
-
 <!DOCTYPE html>
 <html lang = "en">
 <head>
 	<meta charset = "UTF-8">
 	<meta http-equiv = "X-UA-Compatible" content = "IE = edge">
 	<meta name = "viewport" content = "with = device-width, initial-scale = 1.0">
-	<title> EasyFund </title>
-	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<title> EasyFund Login</title>
 </head>
 
 <style>
@@ -74,6 +108,61 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
         margin-bottom: 3px; /* Add some space below the error message */
     }
 
+
+    body {
+    background-color:rgb(241, 228, 231);
+}
+
+h3 {
+    margin-top: 80px;
+    margin-left: 220px;
+    letter-spacing: 1px;
+}
+
+#form {
+    background-color:#DEC5C5;
+    border-radius: 18px;
+    width: 25%;
+    margin-left: 280px;
+    padding: 30px;
+}
+
+#username {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#password{
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 95%;
+    border: 0;
+}
+
+#btn {
+    color: white;
+    background-color: black;
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 0;
+}
+
+#btn2 {
+    color: white;
+    background-color: black;
+    padding: 6px;
+    border-radius: 8px;
+    width: 30%;
+    border: 0;
+}
+
+
+
 </style>
 
 <body>
@@ -83,21 +172,24 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 		Our mission is to facilitate 
 		and simplify the process of fundraising</br><span style = "margin: 180px">
 		for charitable causes within the IIUM community.</p></br>
+
 <div class="container">
 	<img src="Logo.jpg" alt="Logo">
 
-	<div id = "form">
+    <div id = "form">
 		<form name = "form" method = "POST" action="#">
 
 			<div id="error-message">
         	<?php if (isset($errorMessage)) echo $errorMessage; ?>
     		</div> <!-- Error message container -->
 
-			<input type = "text" id = "username" name = "username" placeholder = "Username" required>
-			<input type = "password" id = "username" name = "password" placeholder = "Password" required>
+			<input type = "text" id = "username" name = "username" placeholder = "Username" required  value="<?= htmlspecialchars($_POST["username"] ?? "") ?>">
+
+
+			<input type = "password" id = "password" name = "password" placeholder = "Password" required>
 			
 			<div class="button-container">
-          			<button type="submit" id="btn" name="signin">
+          			<button type="submit" id="btn" name="signin" action="home.php">
             			<span class="button-text">Sign In</span>
           			</button>
 					  <p style = "font-size: 11px"><u>Do not have an account?</u></p>
@@ -120,5 +212,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 
 </body>
 </html>
+
+
 
 
