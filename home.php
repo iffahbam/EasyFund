@@ -1,217 +1,196 @@
-<?php
-session_start();
-?>
-
-
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-	<meta charset = "UTF-8">
-	<meta http-equiv = "X-UA-Compatible" content = "IE = edge">
-	<meta name = "viewport" content = "with = device-width, initial-scale = 1.0">
-	<title> EasyFund </title>
-	<link rel = "stylesheet" type = "text/css" href = "style.css">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>Home</title>
     <style>
+        body {
+            background-color: rgb(241, 228, 231);
+        }
 
-.profile-icon {
-    position: fixed;
-    top: 10px;
-    right: 40px;
-}
+        .profile-icon {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            top: 10px;
+            right: 40px;
+            cursor: pointer;
+        }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+        .text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 20px;
+            margin-left: 14px;
+        }
 
-.topnav {
-  overflow: hidden;
-  background-color: #DEC5C5;
-}
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-.topnav a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+        .topnav {
+            overflow: hidden;
+            background-color: #DEC5C5;
+        }
 
-.topnav a:hover {
-  background-color: #DCA9A9;
-  color: black;
-}
+        .topnav a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
 
-.topnav a.active {
-  background-color: #DCA9A9;
-  color: black;
-}
+        .topnav a:hover {
+            background-color: #DCA9A9;
+            color: black;
+        }
 
-.box-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    margin-bottom: 0px;
-  }
+        .topnav a.active {
+            background-color: #DCA9A9;
+            color: black;
+        }
 
-  .box {
-    background-color: white;
-    width: 30%;
-    min-height: 200px;
-    padding: 60px;
-    border: 1px solid black;
-    margin: 60px;
-    text-align: center; 
-    border-radius: 15px;
-    letter-spacing: 1px;
-  }
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 30px;
+        }
 
-a {
-    color: black;
-    text-decoration: none; /* Optional: Remove underlines from links */
-}
+        a {
+          color: black;
+          text-decoration: none; /* Optional: Remove underlines from links */
+        }
 
-  .box:nth-child(3) p {
-    margin-bottom: 25px; /*space after the paragraph text in Box 3 */
-  }
+        .column-container {
+            display: flex;
+            gap: 20px; /* Adjust the gap between boxes */
+            justify-content: space-between; /* Distribute boxes evenly in 3 columns */
+            flex-wrap: wrap; /* Wrap to the next line if there are more than 3 boxes */
+            padding: 30px;
+        }
 
-  .loading-container {
-    display: flex;
-    justify-content: center; /* Center loading bars horizontally */
-    margin-right: 20px; /* Adjust margin*/
-    margin-bottom: 60px;
-}
+        .boxCol {
+            width: calc(30.33% - 35px);
+            text-align: center;
+            border-radius: 15px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            margin-right: 30px;
+            margin-left: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
 
-.loading-bars {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .boxCol h3 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 120px; /* Adjust the margin as needed to move the title downwards */
+        }
 
-.loading-bar {
-    width: calc(30% - 55px); /* Adjust margins and spacing */
-    height: 25px;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    border: 1px solid #000;
-}
 
-  .loading-fill {
-    height: 100%;
-    background-color: #DA3A3A;
-    width: 50%; /* Adjust width for loading progress */
-    border-radius: 10px;
-  }
+        .box-background {
+            background-image: url('photo.jpg');
+            background-size: cover;
+            min-height: 200px;
+            padding: 90px 60px;
+            border: 1px solid black;
+        }
 
-  .loading-text {
-    position: absolute;
-    bottom: 35px; /* Adjust the value to add more space */
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    letter-spacing: 1px;
-}
+        .loading-bar {
+            width: 100%;
+            height: 15px;
+            background-color: #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            position: relative;
+            margin-top: 10px;
+            
+        }
 
-</style>
+        .loading-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 10px;
+        }
+
+        .number {
+            font-size: 18px; /* Adjust the font size as needed */
+            color: #555; /* Set the color as needed */
+            display: flex;
+            justify-content: center; 
+            margin-top: -60px; 
+        }
+
+    </style>
 </head>
 <body>
-<?php echo $_SESSION["username"]?>
-
-<a href="profile.php"> 
-<div class="profile-icon">
-<img src="profile.jpg" width="30" height="30" alt="Profile">
-</div></a>
-
-<div class="topnav">
-<div style = "padding-left:40px">
-  <a class="active" href="#Home">Home</a>
-  <a href="contact us page.php">Contact Us</a>
-  <a href="#About">About</a>
-  <a href=""></a>
-</div>
-</div>
-
-<div class="box-container">
-    <div class="box">
-      <a href = "donation.php">
-      <h2>Condelence For Imran Syakir</h2></br>
-      <p>Heartfelt condolences to brother
-        Imran, student from KICT whose mother has just passed away recently.</p></a>
+<?php echo $_SESSION["username"] ?>
+<a href="profile.php">
+    <div class="profile-icon">
+        <img src="profile.jpg" width="30" height="30" alt="Profile">
     </div>
+    </a>
     
-    <div class="box">
-      <h2>Fire Relieve Fundraiser</h2></br>
-      <p>Sister Humaira, student from AIKOL just lost her house due to fire 
-          on May in Melaka. Lets donate to relieve her burden.</p>
+    <div class="topnav">
+        <div style="padding-left:40px">
+            <a class="active" href="#Home">Home</a>
+            <a href="contact us page.php">Contact Us</a>
+            <a href="#About">About</a>
+        </div>
     </div>
-    <div class="box">
-      <h2>Flood Victim</h2></br>
-      <p>We regret to inform you that brother Afiq from IRKHS has been 
-          caught in the devastating flood that has affected his home and belongings</p>
-    </div>
-  </div>
-
-  <div class="loading-container">
-  <div class="loading-bars">
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-  </div>
-</div>
-
-<div class="box-container">
-    <div class="box">
-      <h2>Condelence For Imran Syakir</h2></br>
-      <p>Heartfelt condolences to brother
-        Imran, student from KICT whose mother has just passed away recently.</p>
-    </div>
+    <br><br><br>
     
-    <div class="box">
-      <h2>Fire Relieve Fundraiser</h2></br>
-      <p>Sister Humaira, student from AIKOL just lost her house due to fire 
-          on May in Melaka. Lets donate to relieve her burden.</p>
-    </div>
-    <div class="box">
-      <h2>Flood Victim</h2></br>
-      <p>We regret to inform you that brother Afiq from IRKHS has been 
-          caught in the devastating flood that has affected his home and belongings</p>
-    </div>
-  </div>
+    <?php
+    include('connect.php');
+    $sqlSelect = "SELECT * FROM news ORDER BY id DESC";
+    $result = mysqli_query($conn, $sqlSelect);
+    $currentAmount = 500; // Fixed current amount
 
-  <div class="loading-container">
-  <div class="loading-bars">
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-    <div class="loading-bar">
-    <div class="loading-text">RM650 of RM1000</div>
-      <div class="loading-fill"></div>
-    </div>
-  </div>
-</div>
+    if ($result && mysqli_num_rows($result) > 0) {
+        echo '<div class="column-container" id="boxContainer">';
+        while ($data = mysqli_fetch_array($result)) {
+            echo '<div class="boxCol box-background">';
+            echo '<a href="donation.php?id=' . $data['id'] . '">';
+            echo '<h3>' . $data['title'] . '</h3>';
+            echo '<br><br><br><br>';
+            echo '<span class="number">RM' . $currentAmount . ' of RM' . $data['targetAmount'] . '</span>';
+            echo '</a>';
+            echo '<div class="loading-bar">';
+            echo '<div class="loading-fill" style="width: ' . calculateProgress($currentAmount, $data['targetAmount']) . '%;"></div>';
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
+    } 
+    
+    else {
+        echo '<p>No news found</p>';
+    }
 
+    function calculateProgress($currentAmount, $targetAmount) {
+        // Calculate the progress as a percentage
+        $progress = ($currentAmount / $targetAmount) * 100;
+        return $progress;
+    }
+    ?>
+
+    <script>
+        function addNewAnnouncement() {
+            window.location.href = "addAnnouncement.php";
+        }
+    </script>
 </body>
 </html>
-</head>
