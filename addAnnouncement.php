@@ -1,70 +1,17 @@
-<?php
-function encrypt($data, $key, $iv) {
-    $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
-    return base64_encode($encrypted);
-}
-
-function decrypt($data, $key, $iv) {
-    $data = base64_decode($data);
-    return openssl_decrypt($data, 'aes-256-cbc', $key, 0, $iv);
-}
-
-$connect = new PDO("mysql:host=localhost;dbname=testing", "root", "");
-
-$error = '';
-
-if(isset($_POST["add"])) {
-    if (empty($_POST["title"]) || empty($_POST["description"] ) || empty($_POST["targetAmount"] ) || empty($_POST["accountNumber"])) {
-        $error = '<label class="text-danger">Title and Description are required</label>';
-    } else {
-        $title = $_POST["title"];
-        $description = $_POST["description"];
-        $targetAmount = $_POST["targetAmount"];
-        $accountNumber = $_POST["accountNumber"];
-
-        // Define your encryption key and IV
-        $encryptionKey = random_bytes(32);// Replace with your secret key
-        $iv = random_bytes(16);; // Replace with your initialization vector
-
-        // Encrypt the Account Number
-        $encryptedAccountNumber = encrypt($accountNumber, $encryptionKey, $iv);
-
-        $query = "INSERT INTO news (title, description, targetAmount, accountNumber) VALUES (:title, :description, :targetAmount, :accountNumber)";
-        $statement = $connect->prepare($query);
-
-        $data = array(
-            ':title' => $title,
-            ':description' => $description,
-            ':targetAmount' => $targetAmount,
-            ':accountNumber' => $encryptedAccountNumber
-        );
-
-        if ($statement->execute($data)) {
-            $error = '<label class="text-success">Data Inserted Successfully</label>';
-
-            header("Location: adminHome.php");
-            exit();
-        } 
-        
-        else {
-            $error = '<label class="text-danger">Data Insertion Failed</label>';
-        }
-    }
-}
-?>
-
-<html>
-    <head>
-        <title>Insert multiple data to mysql using single textarea in PHP</title>  
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    </head>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>Add New Fundraising</title>
+</head>
 
 <style>
-/* navbar */     
-
-            body {
+        body {
                 background-color: rgb(241, 228, 231);
             }
 
@@ -182,14 +129,12 @@ textarea[name="description"] {
     border: 1px solid #000;
     border-radius: 8px;
     cursor: pointer;
-    width: 12%;
+    width: 20%;
 }
     </style>
 
-
-    <body>
-    <?php echo $_SESSION["username"] ?>
-    <a href ="adminProfile.php">
+<body>
+<a href ="adminProfile.php">
     <div class="profile-icon"> 
         <img src="profile.jpg" width="30" height="30" alt="Profile">
     </div>
@@ -203,28 +148,28 @@ textarea[name="description"] {
                 <a href="#About">About</a>
         </div>
     </div>
-
     <div class="container">
-    <form method="POST" enctype="multipart/form-data">
+        <form action="process.php" method="post">
         <h4>Title</h4>
         <input type="text" id="title" name="title" placeholder="Fundraising Title">
-          
+
         <h4>Description</h4>
-        <textarea id="description" name="description" placeholder="Description details of the receiver's situation"></textarea>
+        <textarea id="description" name="description" placeholder="Description Details"></textarea>
 
         <h4>Target Amount</h4>
-        <input type="number" name="targetAmount" placeholder="RM">
+        <input type="number" id="targetAmount" name="targetAmount" placeholder="Target Amount">
 
         <h4>Account Number</h4>
-        <input type="text" id="accountNumber" name="accountNumber" placeholder="Account Number">
-
+        <input type="number" id="accountNumber" name="accountNumber" placeholder="Account Number">
+       
         
         <div class="button-container">
-            <input class="add" type="submit" name = "add" value="Add">
+            <input class="add" type="submit" name = "create" value="Add">
         </div>
-    </form>
-    </div>
-        <br><br><br>
+        </form>
+    </div><br><br><br>
+
+    <?php echo $_SESSION["username"] ?>
 
     </body>  
 </html>
