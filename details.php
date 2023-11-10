@@ -1,17 +1,17 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Details</title>
-    
-    <style>    
-    
-    /* navbar */     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>Details</title>
+</head>
 
-            body {
+<style>
+        body {
                 background-color: rgb(241, 228, 231);
             }
 
@@ -21,19 +21,17 @@
             }
 
             .profile-icon {
-                position: fixed;
-                top: 10px;
-                right: 40px;
-            }
-
-            body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+                position: absolute;
+                display: flex;
+                align-items: center;
+                top: 10px; /* Adjust the top position as needed */
+                right: 40px; /* Adjust the right position as needed */
+                cursor: pointer; /* Add a pointer cursor on hover */
             }
 
             .topnav {
-            overflow: hidden;
-            background-color: #DEC5C5;
+                overflow: hidden;
+                background-color: #DEC5C5;
             }
 
             .topnav a { 
@@ -54,8 +52,7 @@
             background-color: #DCA9A9;
             color: black;
             }
-
-  /* style for othert details */         
+    
            
 .container {
     margin-bottom: 0 auto;
@@ -84,6 +81,15 @@ input[type="text"] {
     margin-bottom: 20px; /* Add space below the buttons */
 }
 
+input[type="number"] {
+    background-color: white;
+    width: 95%;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    margin-bottom: 20px; /* Add space below the buttons */
+}
+
 textarea {
     background-color: white;
     width: 95%;
@@ -97,7 +103,6 @@ textarea {
     resize: none;
 }
 
-
 .update {
     background-color: rgb(24, 212, 24);
     color: black;
@@ -107,7 +112,6 @@ textarea {
     cursor: pointer;
     width: 20%;
 }
-
 
 input[type="button"] {
     background-color: rgb(211, 97, 97);
@@ -120,14 +124,14 @@ input[type="button"] {
 }
 
     </style>
-</head>
 
 <body>
- 
-    <div class="profile-icon"> 
+<a href="adminProfile.php">
+    <div class="profile-icon">
         <img src="profile.jpg" width="30" height="30" alt="Profile">
     </div>
-
+    </a>
+    
     <div class="topnav">
             <a class="back-button" href="javascript:history.back()"><b> < </b></a>
             <div style = "padding-left:40px">
@@ -137,22 +141,40 @@ input[type="button"] {
         </div>
     </div>
 
-
-     <div class="container">
-     <form method="POST" action="adminHome.php">
+    <div class="container">
+        <form action="process.php" method="post">
+            <?php 
             
-            <h2>Title</h2>
-                <input type="text" id="title" name="title" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">
+            if (isset($_GET['id'])) {
+                include("connect.php");
+                $id = $_GET['id'];
+                $sql = "SELECT * FROM news WHERE id=$id";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_array($result);
+                ?>
+                <h4>Title</h4>
+                <input type="text" id="title" name="title" placeholder="Fundraising Title" value="<?php echo $row["title"]; ?>">
+                
+                <h4>Description</h4>
+                <textarea id="description" name="description" placeholder="Description details"><?php echo $row["description"]; ?></textarea>
+                <br>
+                <h4>Target Amount</h4>
+                <input type="number" id="targetAmount" name="targetAmount" placeholder="RM" value="<?php echo $row["targetAmount"]; ?>">
           
-            <h2>Description</h2>
-                <textarea id="description" name="description" contentEditable="true"><?php echo isset($_GET['description']) ? htmlspecialchars($_GET['description']) : ''; ?></textarea>
-
-                <input type = "hidden" name="update" value="true">
-                <div class="button-container">
-                    <input type="button" value="Cancel" onclick="window.location.href='adminHome.php';">
-                    <input type="submit" class= "update" value="Update" ></div>
+            <input type="hidden" value="<?php echo $id; ?>" name="id">
+            <div class="button-container">
+            <input type="button" value="Cancel" onclick="window.location.href='adminHome.php';">
+                <input type="submit" name="edit" value="Update" class="update">
+            </div>
+                <?php
+            }else{
+                echo "<h3>News Does Not Exist</h3>";
+            }
+            ?>
+           
         </form>
-     </div>
-
+    </div><br><br><br>
+    
 </body>
 </html>
+
